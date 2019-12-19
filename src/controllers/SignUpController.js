@@ -3,7 +3,7 @@ const bcrypt = require("bcrypt");
 const { User } = require("../models/users");
 const sendMessage = require("../utils/sendMessage");
 
-class SingUpController {
+class SignUpController {
   async showAll(req, res) {
     const users = await User.find();
     res.json(users);
@@ -28,4 +28,4 @@ class SingUpController {
   }
 }
 
-module.exports = new SingUpController();
+module.exports = new SignUpController();
