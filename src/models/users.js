@@ -23,9 +23,9 @@ const userSchema = new mongoose.Schema(
             required: true
           },
           ddd: {
-            type: Number,
-            min: 2,
-            max: 3,
+            type: String,
+            minlenght: 2,
+            maxlenght: 3,
             required: true
           }
         }
@@ -35,6 +35,10 @@ const userSchema = new mongoose.Schema(
     ultimoLogin: {
       type: Date,
       default: Date.now
+    },
+    token: {
+      type: String,
+      required: true
     }
   },
   { timestamps: true }
