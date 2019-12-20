@@ -5,46 +5,46 @@ const userSchema = new mongoose.Schema(
   {
     nome: {
       type: String,
-      required: true
+      required: true,
     },
     email: {
       type: String,
-      required: true
+      required: true,
     },
     senha: {
       type: String,
-      required: true
+      required: true,
     },
     telefones: {
       type: [
         {
           numero: {
             type: String,
-            required: true
+            required: true,
           },
           ddd: {
             type: String,
             minlenght: 2,
             maxlenght: 3,
-            required: true
-          }
-        }
+            required: true,
+          },
+        },
       ],
-      required: true
+      required: true,
     },
     ultimoLogin: {
       type: Date,
-      default: Date.now
+      default: Date.now,
     },
     token: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
-userSchema.methods.generateAuthToken = function() {
+userSchema.methods.generateAuthToken = function () {
   const token = jwt.sign({ _id: this._id }, process.env.JWT_PRIVATE_KEY);
   return token;
 };

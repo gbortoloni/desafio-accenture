@@ -12,9 +12,9 @@ class SignInController {
       const tokenHeaderBearer = req.header("Authentication");
       const tokenHeader = tokenHeaderBearer.substring(
         tokenHeaderBearer.indexOf(" ") + 1,
-        tokenHeaderBearer.lenght
+        tokenHeaderBearer.lenght,
       );
-      const validToken = user.token === tokenHeader ? true : false;
+      const validToken = user.token === tokenHeader;
       if (!validToken) {
         return res.status(401).json(sendMessage("Não autorizado"));
       }
@@ -30,7 +30,7 @@ class SignInController {
         return res.status(401).json(sendMessage("Sessão inválida"));
       }
 
-      res.json(
+      return res.json(
         _.pick(user, [
           "_id",
           "nome",
@@ -39,17 +39,17 @@ class SignInController {
           "createdAt",
           "updatedAt",
           "ultimoLogin",
-          "token"
-        ])
+          "token",
+        ]),
       );
     } catch (ex) {
-      res.json(sendMessage(ex.message));
+      return res.json(sendMessage(ex.message));
     }
   }
 
   async auth(req, res) {
     try {
-      let user = await User.findOne({ email: req.body.email });
+      const user = await User.findOne({ email: req.body.email });
       if (!user) {
         return res
           .status(401)
@@ -66,15 +66,15 @@ class SignInController {
       const newToken = user.generateAuthToken();
       await User.updateOne(
         { _id: user._id },
-        { token: newToken, ultimoLogin: new Date() }
+        { token: newToken, ultimoLogin: new Date() },
       );
       user.token = newToken;
 
-      res.json(
-        _.pick(user, ["_id", "createdAt", "updatedAt", "ultimoLogin", "token"])
+      return res.json(
+        _.pick(user, ["_id", "createdAt", "updatedAt", "ultimoLogin", "token"]),
       );
     } catch (ex) {
-      res.json(sendMessage(ex.message));
+      return res.json(sendMessage(ex.message));
     }
   }
 }

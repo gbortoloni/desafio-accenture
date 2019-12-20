@@ -12,7 +12,7 @@ class SignUpController {
       }
 
       user = new User(
-        _.pick(req.body, ["nome", "email", "senha", "telefones"])
+        _.pick(req.body, ["nome", "email", "senha", "telefones"]),
       );
       const salt = await bcrypt.genSalt(10);
       user.senha = await bcrypt.hash(user.senha, salt);
@@ -22,11 +22,11 @@ class SignUpController {
 
       await user.save();
 
-      res.json(
-        _.pick(user, ["_id", "createdAt", "updatedAt", "ultimoLogin", "token"])
+      return res.json(
+        _.pick(user, ["_id", "createdAt", "updatedAt", "ultimoLogin", "token"]),
       );
     } catch (ex) {
-      res.json(sendMessage(ex.message));
+      return res.json(sendMessage(ex.message));
     }
   }
 }

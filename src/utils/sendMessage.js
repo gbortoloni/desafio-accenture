@@ -1,6 +1,6 @@
 function sendMessage(message) {
   const errorMessage = {
-    mensagem: message
+    mensagem: message,
   };
   return errorMessage;
 }
