@@ -19,7 +19,7 @@ class SignInController {
         return res.status(401).json(sendMessage("Não autorizado"));
       }
 
-      const decoded = jwt.verify(tokenHeader, "123456");
+      const decoded = jwt.verify(tokenHeader, process.env.JWT_PRIVATE_KEY);
 
       const dateJWT = new Date(decoded.iat * 1000);
       const dateNow = new Date();
