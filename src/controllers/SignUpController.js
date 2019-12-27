@@ -26,7 +26,7 @@ class SignUpController {
         _.pick(user, ["_id", "createdAt", "updatedAt", "ultimoLogin", "token"]),
       );
     } catch (ex) {
-      return res.json(sendMessage(ex.message));
+      return res.status(400).json(sendMessage(ex.message));
     }
   }
 }

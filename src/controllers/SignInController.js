@@ -27,7 +27,7 @@ class SignInController {
       const minutes = Math.floor(diffMs / 1000 / 60);
 
       if (minutes > 30) {
-        return res.status(401).json(sendMessage("Sessão inválida"));
+        return res.status(403).json(sendMessage("Sessão inválida"));
       }
 
       return res.json(
@@ -74,7 +74,7 @@ class SignInController {
         _.pick(user, ["_id", "createdAt", "updatedAt", "ultimoLogin", "token"]),
       );
     } catch (ex) {
-      return res.json(sendMessage(ex.message));
+      return res.status(400).json(sendMessage(ex.message));
     }
   }
 }
